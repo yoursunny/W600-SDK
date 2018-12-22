@@ -86,7 +86,6 @@ else
 endif
 endif
 	@cp $(IMAGEODIR)/$(TARGET).map $(FIRMWAREDIR)/$(TARGET)/$(TARGET).map
-	@rm ./test.bin
 	@rm $(FIRMWAREDIR)/$(TARGET)/$(TARGET).bin.gz
 	@rm $(FIRMWAREDIR)/$(TARGET)/$(TARGET).img
 	@echo ""
