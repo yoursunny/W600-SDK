@@ -1,0 +1,7 @@
+#!/bin/bash
+DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" >/dev/null && pwd )"
+# @$(DL_TOOL) -p $(DL_PORT) -b $(DL_BAUD) write_flash $(FIRMWAREDIR)/$(TARGET)/$(TARGET)_gz.img
+if ! [[ $1 == "-p" ]] ||! [[ $3 == "-b" ]] ||! [[ $5 == "write_flash" ]]; then
+  exit 1
+fi
+exec python $DIR/py_scripts/download.py "$2" "$6"
