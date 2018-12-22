@@ -1,0 +1,16 @@
+dist: xenial
+language: python
+python: 3.5
+
+install:
+  - pip install -r tools/py_scripts/requirements.txt
+
+script:
+  - make
+
+addons:
+  apt:
+    packages:
+      - gcc-arm-none-eabi
+      - libnewlib-arm-none-eabi
+      - libstdc++-arm-none-eabi-newlib
