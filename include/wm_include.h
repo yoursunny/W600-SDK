@@ -47,7 +47,7 @@
  *
  * This will download image which includes secboot & sdk into flash by ROM using xModem-protocol.
  * @code
- * Pulling down the bootmode pin and reset the device. Then UART0 will output: 
+ * Pulling down the bootmode pin and reset the device. Then UART0 will output:
  * CCC...
  * For details,please refer to the sdk manual.
  * @endcode
@@ -82,7 +82,6 @@
 #include "wm_netif.h"
 #include "wm_efuse.h"
 #include "wm_mem.h"
-#include "wm_demo.h"
 #include "wm_regs.h"
 #include "FreeRTOS.h"
 
