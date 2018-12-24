@@ -93,3 +93,42 @@ tm1637_show(tm1637* tm)
   tm1637_writeByte(tm, 0x8F);
   tm1637_stop(tm);
 }
+
+static const uint8_t DIGIT_SEGMENTS[] = {
+  0b00111111,
+  0b00000110,
+  0b01011011,
+  0b01001111,
+  0b01100110,
+  0b01101101,
+  0b01111101,
+  0b00000111,
+  0b01111111,
+  0b01101111,
+};
+
+uint8_t
+tm1637_digitToSegments(int digit)
+{
+  if (digit < 0 || digit > 9) {
+    return 0;
+  }
+  return DIGIT_SEGMENTS[digit];
+}
+
+bool
+tm1637_setNumber(tm1637* tm, int n, bool pad)
+{
+  if (n < 0 || n > 9999) {
+    return false;
+  }
+  for (int i = 3; i >= 0; --i) {
+    int digit = n % 10;
+    tm->segments[i] = tm1637_digitToSegments(digit);
+    if (!pad && n == 0 && i < 3) {
+      tm->segments[i] = 0;
+    }
+    n /= 10;
+  }
+  return true;
+}
