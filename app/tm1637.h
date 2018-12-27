@@ -16,6 +16,14 @@ typedef struct tm1637
  */
 void tm1637_show(tm1637* tm);
 
+/** \brief Set segments to blank.
+ */
+void tm1637_setBlank(tm1637* tm);
+
+/** \brief Add dot after pos-th segment.
+ */
+void tm1637_addDot(tm1637* tm, int pos);
+
 /** \brief Encode decimal digit to segments.
  */
 uint8_t tm1637_digitToSegments(int digit);
@@ -23,5 +31,9 @@ uint8_t tm1637_digitToSegments(int digit);
 /** \brief Set segments to a non-negative integer.
  */
 bool tm1637_setNumber(tm1637* tm, int n, bool pad);
+
+/** \brief Set segments to a non-negative floating point number.
+ */
+bool tm1637_setFloat(tm1637* tm, float n);
 
 #endif // TM1637_H

@@ -1,5 +1,8 @@
 #include "tm1637.h"
 
+#include <assert.h>
+#include <string.h>
+
 #define TM1637_BITDELAY() \
   do { \
     for (int i = 0; i < 0x03FF; ++i) { \
@@ -94,6 +97,21 @@ tm1637_show(tm1637* tm)
   tm1637_stop(tm);
 }
 
+void
+tm1637_setBlank(tm1637* tm)
+{
+  memset(tm->segments, 0, sizeof(tm->segments));
+}
+
+void
+tm1637_addDot(tm1637* tm, int pos)
+{
+  if (pos < 0 || pos >= 4) {
+    return;
+  }
+  tm->segments[pos] |= 0b10000000;
+}
+
 static const uint8_t DIGIT_SEGMENTS[] = {
   0b00111111,
   0b00000110,
@@ -130,5 +148,29 @@ tm1637_setNumber(tm1637* tm, int n, bool pad)
     }
     n /= 10;
   }
+  return true;
+}
+
+bool
+tm1637_setFloat(tm1637* tm, float n)
+{
+  if (n < 0.0 || n >= 9999.0) {
+    return false;
+  }
+
+  if (n < 1.0) {
+    tm1637_setNumber(tm, (int)(n * 1000), true);
+    tm1637_addDot(tm, 0);
+    return true;
+  }
+
+  int dot = 3;
+  while (n * 10 < 9999.0) {
+    n *= 10;
+    --dot;
+  }
+  assert(dot >= 0);
+  tm1637_setNumber(tm, n, true);
+  tm1637_addDot(tm, dot);
   return true;
 }

@@ -1,4 +1,4 @@
-# Air602 - HTU21D and TM1637
+# Air602 - weather
 
 Measure temperature and humidity with HTU21D sensor, and display on TM1637 four-digit LED display.
 

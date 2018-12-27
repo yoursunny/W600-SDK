@@ -1,6 +1,11 @@
 #include "htu21d.h"
 #include "tm1637.h"
+#include <wm_gpio_afsel.h>
+#include <wm_i2c.h>
 #include <wm_include.h>
+
+_Atomic float g_tmp = 0.0;
+_Atomic float g_hum = 0.0;
 
 static void
 MeasureTask(void* taskParam)
@@ -21,9 +26,11 @@ MeasureTask(void* taskParam)
 
   // perform measurement
   while (true) {
-    float temperature, humidity;
-    if (htu21d_readTemperature(&temperature) && htu21d_readHumidity(&humidity)) {
-      printf("%0.2f %0.2f\n", temperature, humidity);
+    float tmp, hum;
+    if (htu21d_readTemperature(&tmp) && htu21d_readHumidity(&hum)) {
+      printf("htu21d: %0.2f %0.2f\n", tmp, hum);
+      g_tmp = tmp;
+      g_hum = hum;
     }
     tls_os_time_delay(HZ);
   }
@@ -39,11 +46,17 @@ DisplayTask(void* taskParam)
 
   // update display
   while (true) {
-    for (int n = 0; n <= 9999; ++n) {
-      tm1637_setNumber(&tm, n, true);
-      tm1637_show(&tm);
-      tls_os_time_delay(50);
-    }
+    tm1637_setFloat(&tm, g_tmp);
+    tm1637_show(&tm);
+    tls_os_time_delay(HZ);
+
+    tm1637_setFloat(&tm, g_hum);
+    tm1637_show(&tm);
+    tls_os_time_delay(HZ);
+
+    tm1637_setBlank(&tm);
+    tm1637_show(&tm);
+    tls_os_time_delay(HZ);
   }
 }
 
