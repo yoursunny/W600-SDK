@@ -1,12 +1,13 @@
-# Air602 - HTU21D
+# Air602 - HTU21D and TM1637
 
-Connect to HTU21D sensor.
+Measure temperature and humidity with HTU21D sensor, and display on TM1637 four-digit LED display.
 
-W600 pin | HTU21D pin
----------|-----------
-PB10     | +
-GND      | -
-PB11     | CL
-PB12     | DA
-
-This is not yet working.
+Air602 pin | W600 pin | HTU21D pin | TM1637 pin
+-----------|----------|------------|-----------
+IO         | PB08     | +          |
+CTS        | PB08     |            | CLK
+RTS        | PB08     |            | DIO
+RX1        | PB08     | CL         |
+TX1        | PB08     | DA         |
+USB 5V     |          |            | 5V
+GND        |          | -          | GND
