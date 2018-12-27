@@ -20,7 +20,11 @@ enum {
     } \
   } while(false)
 
-#define I2C_START(addr, isRead) I2C_WRITE2((addr << 1) | (int)isRead, true)
+#define I2C_START(addr, isRead) \
+  do { \
+    tls_os_time_delay(1); \
+    I2C_WRITE2(((addr << 1) | (isRead ? 1 : 0)), true); \
+  } while(false)
 
 #define I2C_WRITE(data) I2C_WRITE2(data, false)
 
@@ -43,7 +47,6 @@ htu21d_reset()
   I2C_START(HTU21D_I2CADDR, true);
   uint8_t reg = I2C_READ(true);
   I2C_STOP();
-  printf("reg=%02x\n", reg);
 
   return reg == 0x02;
 }
