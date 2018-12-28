@@ -11,3 +11,5 @@ RX1        | PB11     | CL         |
 TX1        | PB12     | DA         |
 USB 5V     |          |            | 5V
 GND        |          | -          | GND
+
+Blog post: <https://yoursunny.com/t/2018/Air602-weather/>
