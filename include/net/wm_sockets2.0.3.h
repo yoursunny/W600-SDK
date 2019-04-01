@@ -11,6 +11,7 @@
 #define WM_SOCKET_API2_0_3_H
 
 #include <stdio.h>
+#include <sys/time.h>
 #include "wm_type_def.h"
 #include "wm_config.h"
 
@@ -21,13 +22,13 @@ typedef u8_t sa_family_t;
 #endif
 /** If your port already typedef's in_port_t, define IN_PORT_T_DEFINED
    to prevent this code from redefining it. */
-#if !defined(in_port_t) && !defined(IN_PORT_T_DEFINED)
+#if !defined(in_port_t) && !defined(IN_PORT_T_DEFINED) && !defined(_IN_PORT_T_DECLARED)
 typedef u16_t in_port_t;
 #endif
 
 /** If your port already typedef's in_addr_t, define IN_ADDR_T_DEFINED
    to prevent this code from redefining it. */
-#if !defined(in_addr_t) && !defined(IN_ADDR_T_DEFINED)
+#if !defined(in_addr_t) && !defined(IN_ADDR_T_DEFINED) && !defined(_IN_ADDR_T_DECLARED)
 typedef u32_t in_addr_t;
 #endif
 
@@ -423,7 +424,7 @@ typedef struct fd_set
 /** LWIP_TIMEVAL_PRIVATE: if you want to use the struct timeval provided
  * by your system, set this to 0 and include <sys/time.h> in cc.h */
 #ifndef LWIP_TIMEVAL_PRIVATE
-#define LWIP_TIMEVAL_PRIVATE 1
+#define LWIP_TIMEVAL_PRIVATE 0
 #endif
 
 #if LWIP_TIMEVAL_PRIVATE

@@ -95,7 +95,7 @@ def main(argv):
         return
     
     print('')
-    print("serial open success！com: %s, baudrate: %s;" % download.info())
+    print("serial open success! com: %s, baudrate: %s;" % download.info())
     print('please restart device!')
     download.set_timeout(0.1)
     while True:

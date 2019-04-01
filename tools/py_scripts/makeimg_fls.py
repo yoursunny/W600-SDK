@@ -151,7 +151,7 @@ def main(argv):
         f_sec.close()
         f_app.close()
         f_out.close()
-        print("create %s file success！" % argv[3])
+        print("create %s file success!" % argv[3])
         print("%s size:%dKB. %s size:%dKB" % (argv[2], appimg_len / 1024.0 , argv[3], final_len / 1024.0))
 
 
